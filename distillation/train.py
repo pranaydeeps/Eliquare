@@ -16,6 +16,9 @@
 Training the distilled model.
 Supported architectures include: BERT -> DistilBERT, RoBERTa -> DistilRoBERTa, GPT2 -> DistilGPT2.
 """
+#export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
+#export PYTORCH_NO_CUDA_MEMORY_CACHING=1
+
 import argparse
 import json
 import os
@@ -42,6 +45,7 @@ from transformers import (
     RobertaTokenizer,
 )
 from utils import git_log, init_gpu_params, logger, set_seed
+
 
 
 MODEL_CLASSES = {
@@ -303,6 +307,9 @@ def main():
         freeze_token_type_embeddings(student, args)
 
     # SANITY CHECKS #
+    print("TEACHER VOCABBBBB")
+    print(teacher.config.vocab_size)
+
     assert student.config.vocab_size == teacher.config.vocab_size
     assert student.config.hidden_size == teacher.config.hidden_size
     assert student.config.max_position_embeddings == teacher.config.max_position_embeddings

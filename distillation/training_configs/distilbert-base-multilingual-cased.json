@@ -10,6 +10,6 @@
 	"n_layers": 6,
 	"sinusoidal_pos_embds": true,
 	"tie_weights_": true,
-	"vocab_size": 119547
+	"vocab_size": 105879
   }
   

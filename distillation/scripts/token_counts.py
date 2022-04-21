@@ -44,12 +44,21 @@ if __name__ == "__main__":
         data = pickle.load(fp)
 
     logger.info("Counting occurences for MLM.")
-    counter = Counter()
+    token_list = []
     for tk_ids in data:
-        counter.update(tk_ids)
-    counts = [0] * args.vocab_size
+        token_list+=list(tk_ids)
+    counter = Counter(token_list)
+    print("REEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+    #print(len(counter))
+    #counter = counter.most_common(args.vocab_size)
+    size = max(token_list)+1
+    print(size)
+    counts = [0] * 105879
     for k, v in counter.items():
-        counts[k] = v
+        try:
+            counts[k] = v
+        except:
+            print(k)
 
     logger.info(f"Dump to {args.token_counts_dump}")
     with open(args.token_counts_dump, "wb") as handle:
